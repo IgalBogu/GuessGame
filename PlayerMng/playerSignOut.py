@@ -5,4 +5,5 @@ class newPlayer:
 
     @staticmethod
     def newPlayer():
-        playerName.addPlayerName()
+        pName = playerName.Players
+        pName.addPlayerName()

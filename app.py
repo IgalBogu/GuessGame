@@ -1,33 +1,28 @@
 import logging
-
-import FileOperation.InitScoreBoard as initFile
-import FileOperation.scores as openScores
+from FileOperation import DbConnection
 from PlayerMng import playerName, playerSignOut
-from Menu import start, help, quit
-
-init = initFile.Init
-init.createFile()
+from Menu import start, help, quit, scores
 
 
 def main():
     print('''
             Welcome To the Guessing Game!
             May you're staying will be Pleasant!
-            
-            
             ''')
 
-    playerName.addPlayerName()
+    db = DbConnection
+    db.create_connection('Scores.sqlite')
+
+    pName = playerName.Players
+    pName.addPlayerName()
 
     while True:
-
         print(''' 
                 1 - Game instructions
                 2 - Start the game
                 3 - Load score
                 4 - Quit
                 5 - Sign Out''')
-
         try:
             command = input("> ").lower()
 
@@ -37,11 +32,11 @@ def main():
 
             elif command == '2':
                 s = start.Start
-                s.startGame(start)
+                s.startGame()
 
             elif command == '3':
-                os = openScores.LoadScores
-                os.loadResults()
+                os = scores.ScoreMenu
+                os.scoreMenu(scores)
 
             elif command == '4':
                 q = quit.Quit
@@ -67,4 +62,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         print('\nGame Interrupted...Quiting')
-

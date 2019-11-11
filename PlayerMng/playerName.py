@@ -1,25 +1,30 @@
-import json
 import string
+import sqlite3
 
 
-def addPlayerName():
-    try:
-        _userInput = input("Enter Player Name: ")
+class Players:
+    @staticmethod
+    def addPlayerName():
+        try:
+            _userInput = input("Enter Player Name: ")
 
-        if _userInput == "" or _userInput == "\n\f\r\t" or _userInput == string.whitespace or _userInput == '':
-            return addPlayerName()
+            if _userInput == "" or _userInput == "\n\f\r\t" or _userInput == string.whitespace or _userInput == '':
+                return Players.addPlayerName()
 
-        else:
-            print(f"Welcome {_userInput}")
-            with open('scores.json', 'r+') as f:
-                data = json.load(f)
-                data['Name'] = f"{_userInput}"  # <--- add `Name` value.
-                f.seek(0)  # <--- should reset file position to the beginning.
-                json.dump(data, f, indent=4)
-                f.truncate()
+            else:
+                print(f"Welcome {_userInput}")
 
-    except ValueError as _valueError:
-        print(_valueError)
+                # Connecting to the database file
+                conn = sqlite3.connect('Scores.sqlite')
+                c = conn.cursor()
 
-    except KeyboardInterrupt as ki:
-        print(ki)
+                c.execute("INSERT INTO Players (FirstName) VALUES(?)", (_userInput,))
+                conn.commit()
+                conn.close()
+                return conn
+
+        except ValueError as _valueError:
+            print(_valueError)
+
+        except KeyboardInterrupt as ki:
+            print(ki)

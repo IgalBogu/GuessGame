@@ -1,11 +1,12 @@
-import json
 import random
+import sqlite3
 
 
-class Start():
+class Start:
     @staticmethod
-    def startGame(self):
+    def startGame():
         print('Starting Game...')
+
         guess_count = 0
         guess_limit = 3
         secret_number = random.randint(0, 9)
@@ -16,36 +17,33 @@ class Start():
                 user_input = int(input("Select Number: "))
                 if user_input != "":
                     if user_input == secret_number:
-                        with open('scores.json', 'r+') as f:
-                            data = json.load(f)
-                            win_count = data["Wins"]
-                            data["Wins"] = win_count + 1
-                            f.seek(0)
-                            json.dump(data, f, indent=4)
-                            f.truncate()
+
                         print(f"""###########  Winning Number: {user_input} ###########""")
-                        return user_input
+                        conWin = sqlite3.connect('Scores.sqlite')
+                        c = conWin.cursor()
+                        c.execute("INSERT INTO Wins (Wins) VALUES(?)", (user_input,))
+                        conWin.commit()
+                        conWin.close()
+                        return conWin
 
                     elif user_input not in range(0, 10):
-                        print("Select Only Number between 0 and 9 ")
-                        print("Try Again")
+                        print("Select Only Number between 0 and 9 , Try Again! ")
                         return user_input
 
                     else:
                         if secret_number != user_input and guess_count == guess_limit:
-                            with open('scores.json', 'r+') as f:
-                                data = json.load(f)
-                                loose_count = data["Looses"]
-                                data["Looses"] = loose_count + 1
-                                f.seek(0)
-                                json.dump(data, f, indent=4)
-                                f.truncate()
                             print("""########## You Loose ##########""")
-                            return user_input
+
+                            conLoose = sqlite3.connect('Scores.sqlite')
+                            c = conLoose.cursor()
+
+                            c.execute("INSERT INTO Looses (Looses) VALUES(?)", (user_input,))
+                            conLoose.commit()
+                            conLoose.close()
+                            return conLoose
 
             except ValueError:
-                print("Select Only Number between 0 and 9 ")
-                print("Try Again")
+                print("Select Only Number between 0 and 9 , Try Again! ")
                 guess_count += -1
                 return user_input
 
