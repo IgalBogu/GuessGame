@@ -39,22 +39,22 @@ class Start:
 
                             with conLoose:
                                 c = conLoose.cursor()
-                            print("""########## You Loose ##########""")
 
-                            Wins = str(select.Wins())
-                            Looses = str(select.Looses())
+                            print(f"""########## You Loose ##########""")
+
+
 
                             for win in c.fetchall():
+                                c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
                                 print(win)
 
                             for loose in c.fetchall():
+                                c.execute("INSERT INTO Looses (Looses) VALUES(?)", (loose,))
                                 print(loose)
 
-                            c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
-                            c.execute("INSERT INTO Looses (Looses) VALUES(?)", (loose,))
+                            #      c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
+                            #     c.execute("INSERT INTO Looses (Looses) VALUES(?)", (loose,))
 
-                            print(Wins)
-                            print(Looses)
 
                             conLoose.commit()
                             conLoose.close()
