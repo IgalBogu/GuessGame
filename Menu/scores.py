@@ -50,8 +50,8 @@ class AllPlayers:
                 cur.execute('''\
                             SELECT Players.FirstName, Wins.Wins, Looses.Looses
                             From Players
-                            LEFT  JOIN  Wins ON Players.id = Wins.id
-                            LEFT  JOIN  Looses ON Players.id = Looses.id
+                            JOIN  Wins ON Players.id = Wins.id
+                            JOIN  Looses ON Players.id = Looses.id
                             ''')
 
                 data = cur.fetchall()
