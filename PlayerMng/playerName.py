@@ -22,11 +22,9 @@ class Players:
                     JOIN Looses ON Players.id = Looses.id
                     ''')
                     data = c.fetchall()
-                    print("Players List")
-                    print(data)
 
-                    if data:
-                        print(data)
+                   # if data:
+                  #      print(data)
 
                     print(f"\nWelcome {_userInput}, We are Glad to see you here!")
 

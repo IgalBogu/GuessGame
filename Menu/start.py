@@ -34,10 +34,12 @@ class Start:
 
                     else:
                         if secret_number != user_input and guess_count == guess_limit:
-                            print("""########## You Loose ##########""")
 
                             conLoose = sqlite3.connect('Scores.sqlite')
-                            c = conLoose.cursor()
+
+                            with conLoose:
+                                c = conLoose.cursor()
+                            print("""########## You Loose ##########""")
 
                             Wins = str(select.Wins())
                             Looses = str(select.Looses())
@@ -45,8 +47,11 @@ class Start:
                             for win in c.fetchall():
                                 print(win)
 
-         #                   c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
-          #                  c.execute("INSERT INTO Looses (Looses) VALUES(?)", (1,))
+                            for loose in c.fetchall():
+                                print(loose)
+
+                            c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
+                            c.execute("INSERT INTO Looses (Looses) VALUES(?)", (loose,))
 
                             print(Wins)
                             print(Looses)

@@ -55,7 +55,8 @@ class AllPlayers:
                             ''')
 
                 data = cur.fetchall()
-                print(data)
+                for players in data:
+                    print("Name: ", players)
 
         except lite.Error as e:
             print("Error {}:".format(e.args[0]))
@@ -78,12 +79,12 @@ class topScore:
             cur.execute('''\
                 SELECT Players.FirstName, Wins.Wins, Looses.Looses
                 From Players
-                LEFT JOIN Wins ON Players.id = Wins.id
-                LEFT JOIN Looses ON Players.id = Looses.id
+                 JOIN Wins ON Players.id = Wins.id
+                 JOIN Looses ON Players.id = Looses.id
                 ORDER by Wins DESC
                         ''')
             data = cur.fetchone()
-            print(data)
+            print("Name: ", data[0], "\nWins: ", data[1], "\nLooses: ", data[2])
 
         except lite.Error as e:
             print("Error {}:".format(e.args[0]))
@@ -106,13 +107,13 @@ class topLoose:
             cur.execute('''\
                 SELECT Players.FirstName, Wins.Wins, Looses.Looses
                 From Players
-                LEFT JOIN Wins ON Players.id = Wins.id
-                LEFT JOIN Looses ON Players.id = Looses.id
+                 JOIN Wins ON Players.id = Wins.id
+                 JOIN Looses ON Players.id = Looses.id
                 ORDER by Wins ASC
                         ''')
 
             data = cur.fetchone()
-            print(data)
+            print("Name: ", data[0], "\nWins: ", data[1], "\nLooses", data[2])
 
         except lite.Error as e:
             print("Error {}:".format(e.args[0]))
