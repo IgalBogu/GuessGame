@@ -1,10 +1,13 @@
 import random
 import sqlite3
+from FileOperation import Db_Select as select
+from PlayerMng import playerName as pName
 
 
 class Start:
     @staticmethod
     def startGame():
+
         print('Starting Game...')
 
         guess_count = 0
@@ -17,14 +20,13 @@ class Start:
                 user_input = int(input("Select Number: "))
                 if user_input != "":
                     if user_input == secret_number:
-
-                        print(f"""###########  Winning Number: {user_input} ###########""")
                         conWin = sqlite3.connect('Scores.sqlite')
-                        c = conWin.cursor()
-                        c.execute("INSERT INTO Wins (Wins) VALUES(?)", (user_input,))
-                        conWin.commit()
-                        conWin.close()
-                        return conWin
+
+                        with conWin:
+                            c = conWin.cursor()
+
+                            print(f"""###########  Winning Number: {user_input} ###########""")
+                            return conWin
 
                     elif user_input not in range(0, 10):
                         print("Select Only Number between 0 and 9 , Try Again! ")
@@ -37,7 +39,18 @@ class Start:
                             conLoose = sqlite3.connect('Scores.sqlite')
                             c = conLoose.cursor()
 
-                            c.execute("INSERT INTO Looses (Looses) VALUES(?)", (user_input,))
+                            Wins = str(select.Wins())
+                            Looses = str(select.Looses())
+
+                            for win in c.fetchall():
+                                print(win)
+
+         #                   c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
+          #                  c.execute("INSERT INTO Looses (Looses) VALUES(?)", (1,))
+
+                            print(Wins)
+                            print(Looses)
+
                             conLoose.commit()
                             conLoose.close()
                             return conLoose

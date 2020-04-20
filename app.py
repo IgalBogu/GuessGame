@@ -2,13 +2,13 @@ import logging
 from FileOperation import DbConnection
 from PlayerMng import playerName, playerSignOut
 from Menu import start, help, quit, scores
+from flask import Flask
+
+app = Flask(__name__)
 
 
+@app.route('/')
 def main():
-    print('''
-            Welcome To the Guessing Game!
-            May you're staying will be Pleasant!
-            ''')
 
     db = DbConnection
     db.create_connection('Scores.sqlite')
@@ -18,11 +18,11 @@ def main():
 
     while True:
         print(''' 
-                1 - Game instructions
-                2 - Start the game
-                3 - Load score
-                4 - Quit
-                5 - Sign Out''')
+                    1 - Game instructions
+                    2 - Start the game
+                    3 - Load score
+                    4 - Quit
+                    5 - Sign Out''')
         try:
             command = input("> ").lower()
 
@@ -59,6 +59,9 @@ def main():
 
 if __name__ == "__main__":
     try:
-        main()
+        app.env = 'development'
+        app.debug = True
+        app.run()
+
     except KeyboardInterrupt:
         print('\nGame Interrupted...Quiting')

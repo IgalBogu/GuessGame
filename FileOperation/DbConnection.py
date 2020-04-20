@@ -9,7 +9,6 @@ field_type = 'Text'  # column data type
 
 
 def create_connection(Scores_db):
-
     try:
         Done = False
         while not (firstName, Wins, Looses):

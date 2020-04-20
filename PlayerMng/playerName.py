@@ -12,19 +12,35 @@ class Players:
                 return Players.addPlayerName()
 
             else:
-                print(f"Welcome {_userInput}")
-
-                # Connecting to the database file
                 conn = sqlite3.connect('Scores.sqlite')
                 c = conn.cursor()
+                with conn:
+                    c.execute('''\
+                    SELECT Players.FirstName,Wins.Wins,Looses.Looses
+                    FROM Players
+                    JOIN Wins ON Players.id = Wins.id
+                    JOIN Looses ON Players.id = Looses.id
+                    ''')
+                    data = c.fetchall()
+                    print("Players List")
+                    print(data)
 
-                c.execute("INSERT INTO Players (FirstName) VALUES(?)", (_userInput,))
-                conn.commit()
-                conn.close()
-                return conn
+                    if data:
+                        print(data)
+
+                    print(f"\nWelcome {_userInput}, We are Glad to see you here!")
+
+                    # Connecting to the database file
+                    conn = sqlite3.connect('Scores.sqlite')
+                    c = conn.cursor()
+
+                    c.execute("INSERT INTO Players (FirstName) VALUES(?)", (_userInput,))
+                    conn.commit()
+                    conn.close()
+                    return conn
 
         except ValueError as _valueError:
-            print(_valueError)
+                print(_valueError)
 
         except KeyboardInterrupt as ki:
-            print(ki)
+                print(ki)

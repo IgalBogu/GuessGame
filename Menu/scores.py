@@ -46,15 +46,16 @@ class AllPlayers:
         try:
             con = lite.connect('Scores.sqlite')
             cur = con.cursor()
-            cur.execute('''\
-                        SELECT Players.FirstName, Wins.Wins, Looses.Looses
-                        From Players
-                        LEFT JOIN Wins ON Players.id = Wins.id
-                        LEFT JOIN Looses ON Players.id = Looses.id
-                        ''')
+            with con:
+                cur.execute('''\
+                            SELECT Players.FirstName, Wins.Wins, Looses.Looses
+                            From Players
+                            LEFT  JOIN  Wins ON Players.id = Wins.id
+                            LEFT  JOIN  Looses ON Players.id = Looses.id
+                            ''')
 
-            data = cur.fetchone()
-            print(data)
+                data = cur.fetchall()
+                print(data)
 
         except lite.Error as e:
             print("Error {}:".format(e.args[0]))
