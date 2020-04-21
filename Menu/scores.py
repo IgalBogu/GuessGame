@@ -9,29 +9,31 @@ class ScoreMenu:
         while True:
             print(''' 
                 ############ Score Board #######
-                    1 - All Players
-                    2 - Top Score
-                    3 - Top Looser
-                    4 - Start Game
+                    1 - My Scores
+                    2 - All Players
+                    3 - Top Score
+                    4 - Top Looser
+                    5 - Back to Main Menu
                     ''')
             try:
                 command = input("> ").lower()
 
                 if command == '1':
+                    print("My Score ")
+                elif command == '2':
                     _all = AllPlayers
                     _all.allPlayersResults()
 
-                elif command == '2':
+                elif command == '3':
                     _top = topScore
                     _top.topPlayer()
 
-                elif command == '3':
+                elif command == '4':
                     _loose = topLoose
                     _loose.topLoose()
 
-                elif command == '4':
-                    _start = start.Start
-                    _start.startGame()
+                elif command == '5':
+                    return
 
             except Exception as ex:
                 print(ex)

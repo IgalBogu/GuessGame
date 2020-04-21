@@ -37,24 +37,18 @@ class Start:
 
                             conLoose = sqlite3.connect('/Users/igal/PycharmProjects/GuessGame/Scores.db')
 
-
                             with conLoose:
                                 c = conLoose.cursor()
 
                             print(f"""########## You Loose ##########""")
 
-
-
                             for win in c.fetchall():
-                                c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
+                                c.execute("INSERT INTO Players (Wins) VALUES(?)", (win,))
                                 print(win)
 
                             for loose in c.fetchall():
-                                c.execute("INSERT INTO Looses (Looses) VALUES(?)", (loose,))
+                                c.execute("INSERT INTO Players (Looses) VALUES(?)", (loose,))
                                 print(loose)
-
-                            #      c.execute("INSERT INTO Wins (Wins) VALUES(?)", (win,))
-                            #     c.execute("INSERT INTO Looses (Looses) VALUES(?)", (loose,))
 
 
                             conLoose.commit()
