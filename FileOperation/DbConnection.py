@@ -1,6 +1,6 @@
 import sqlite3
 
-sqlite_file = 'Scores.sqlite'  # name of the sqlite database file
+sqlite_file = 'Scores.db'  # name of the sqlite database file
 Players = 'Players'  # name of the table to be created
 firstName = 'FirstName'  # name of the column
 Wins = 'Wins'  # name of the column
@@ -15,9 +15,9 @@ def create_connection(Scores_db):
             Done = True
 
         # Connecting to the database file
-        conn = sqlite3.connect(Scores_db)
-        c = conn.cursor()
-
+        db_conn = sqlite3.connect(Scores_db)
+        c = db_conn.cursor()
+        print("db connect completed")
         # Creating a new SQLite table with 1 column
         c.execute('CREATE TABLE {tn} ({nf} {ft})'
                   .format(tn=Players, nf=firstName, ft=field_type))
@@ -32,8 +32,8 @@ def create_connection(Scores_db):
     finally:
         return
     # Committing changes and closing the connection to the database file
-    conn.commit()
-    conn.close()
-    return conn
+    db_conn.commit()
+    db_conn.close()
+    return db_conn
 
 

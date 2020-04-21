@@ -20,7 +20,7 @@ class Start:
                 user_input = int(input("Select Number: "))
                 if user_input != "":
                     if user_input == secret_number:
-                        conWin = sqlite3.connect('Scores.sqlite')
+                        conWin = sqlite3.connect('Scores.db')
 
                         with conWin:
                             c = conWin.cursor()
@@ -35,7 +35,8 @@ class Start:
                     else:
                         if secret_number != user_input and guess_count == guess_limit:
 
-                            conLoose = sqlite3.connect('Scores.sqlite')
+                            conLoose = sqlite3.connect('/Users/igal/PycharmProjects/GuessGame/Scores.db')
+
 
                             with conLoose:
                                 c = conLoose.cursor()

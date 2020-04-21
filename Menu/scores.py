@@ -1,4 +1,4 @@
-import sqlite3 as lite
+import sqlite3 as db
 import sys
 from Menu import start
 
@@ -44,7 +44,7 @@ class AllPlayers:
 
         con = None
         try:
-            con = lite.connect('Scores.sqlite')
+            con = db.connect('/Users/igal/PycharmProjects/GuessGame/Scores.db')
             cur = con.cursor()
             with con:
                 cur.execute('''\
@@ -58,7 +58,7 @@ class AllPlayers:
                 for players in data:
                     print("Name: ", players)
 
-        except lite.Error as e:
+        except db.Error as e:
             print("Error {}:".format(e.args[0]))
             sys.exit(1)
 
@@ -73,7 +73,7 @@ class topScore:
         """Load top players scores"""
         conn = None
         try:
-            conn = lite.connect('Scores.sqlite')
+            conn = db.connect('/Users/igal/PycharmProjects/GuessGame/Scores.db')
 
             cur = conn.cursor()
             cur.execute('''\
@@ -86,7 +86,7 @@ class topScore:
             data = cur.fetchone()
             print("Name: ", data[0], "\nWins: ", data[1], "\nLooses: ", data[2])
 
-        except lite.Error as e:
+        except db.Error as e:
             print("Error {}:".format(e.args[0]))
             sys.exit(1)
 
@@ -101,7 +101,7 @@ class topLoose:
         """Load Top loose"""
         conn = None
         try:
-            conn = lite.connect('Scores.sqlite')
+            conn = db.connect('/Users/igal/PycharmProjects/GuessGame/Scores.db')
 
             cur = conn.cursor()
             cur.execute('''\
@@ -115,7 +115,7 @@ class topLoose:
             data = cur.fetchone()
             print("Name: ", data[0], "\nWins: ", data[1], "\nLooses", data[2])
 
-        except lite.Error as e:
+        except db.Error as e:
             print("Error {}:".format(e.args[0]))
             sys.exit(1)
 

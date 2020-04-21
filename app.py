@@ -11,7 +11,7 @@ app = Flask(__name__)
 def main():
 
     db = DbConnection
-    db.create_connection('Scores.sqlite')
+    db.create_connection('Scores.db')
 
     pName = playerName.Players
     pName.addPlayerName()
