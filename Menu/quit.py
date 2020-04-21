@@ -22,7 +22,7 @@ class Quit:
                 elif _user_input in yesChoice:
                     print("\n")
                     restartGame = start.Start
-                    restartGame.startGame(start)
+                    restartGame.startGame()
 
                 elif _user_input in noChoice:
                     print("\nOhh Please Be back soon!, Bye bye")

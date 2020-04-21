@@ -11,7 +11,7 @@ app = Flask(__name__)
 def main():
 
     db = DbConnection
-    db.create_connection('Scores.db')
+    db.create_connection('/Users/igal/PycharmProjects/GuessGame/Scores.db')
 
     pName = playerName.Players
     pName.addPlayerName()
@@ -59,9 +59,10 @@ def main():
 
 if __name__ == "__main__":
     try:
-        app.env = 'development'
-        app.debug = True
-        app.run()
+        # app.env = 'development'
+        # app.debug = True
+        # app.run()
+        main()
 
     except KeyboardInterrupt:
         print('\nGame Interrupted...Quiting')

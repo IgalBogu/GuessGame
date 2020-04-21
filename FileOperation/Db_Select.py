@@ -21,5 +21,5 @@ def Looses():
     conn = sqlite3.connect('Scores.db')
     c = conn.cursor()
     with conn:
-        _looses = c.execute('Select * FROM Looses WHERE Id = (SELECT Min(ID) FROM Looses)')
+        _looses = c.execute('Select * FROM Looses WHERE Id = (SELECT Max(ID) FROM Looses)')
         return _looses

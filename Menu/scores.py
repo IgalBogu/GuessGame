@@ -19,7 +19,7 @@ class ScoreMenu:
                 command = input("> ").lower()
 
                 if command == '1':
-                    print("My Score ")
+                    print("My Score In work")
                 elif command == '2':
                     _all = AllPlayers
                     _all.allPlayersResults()

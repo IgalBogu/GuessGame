@@ -9,7 +9,6 @@ class Start:
     def startGame():
 
         print('Starting Game...')
-
         guess_count = 0
         guess_limit = 3
         secret_number = random.randint(0, 9)
@@ -20,11 +19,15 @@ class Start:
                 user_input = int(input("Select Number: "))
                 if user_input != "":
                     if user_input == secret_number:
-                        conWin = sqlite3.connect('Scores.db')
+                        conWin = sqlite3.connect('/Users/igal/PycharmProjects/GuessGame/Scores.db')
 
                         with conWin:
                             c = conWin.cursor()
-
+                            for win in c.fetchall():
+                                print(win)
+                                print(conWin)
+                            c.execute("INSERT INTO Wins(Wins) VALUES(?)")
+                            print(win)
                             print(f"""###########  Winning Number: {user_input} ###########""")
                             return conWin
 
@@ -39,17 +42,12 @@ class Start:
 
                             with conLoose:
                                 c = conLoose.cursor()
+                            for loose in c.fetchall():
+                                print(loose)
+                            c.execute("INSERT INTO Looses (Looses) VALUES(?)")
+                            print(loose)
 
                             print(f"""########## You Loose ##########""")
-
-                            for win in c.fetchall():
-                                c.execute("INSERT INTO Players (Wins) VALUES(?)", (win,))
-                                print(win)
-
-                            for loose in c.fetchall():
-                                c.execute("INSERT INTO Players (Looses) VALUES(?)", (loose,))
-                                print(loose)
-
 
                             conLoose.commit()
                             conLoose.close()
